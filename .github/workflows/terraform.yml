@@ -1,0 +1,40 @@
+name: IaC Check - Terraform format and validate
+on:
+
+  push:
+
+    branches:
+
+      - main
+
+ 
+
+jobs:
+
+  terraform:
+
+    name: Terraform  CI Validation
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repo
+
+        uses: actions/checkout@v4 
+
+      - name: Setup Terraform
+
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Format Check
+
+        run: terraform fmt -recursive
+
+      - name: Terraform init
+
+        run: terraform init -backend=false -input=false
+
+      - name: Terraform validate
+
+        run: terraform validate
